@@ -517,7 +517,7 @@ def batched_matrix_multiply_loop(x: Tensor, y: Tensor) -> Tensor:
     #                      TODO: Implement this function                      #
     ###########################################################################
     # Replace "pass" statement with your code
-    pass
+    z = torch.stack([x[i].mm(y[i]) for i in range(x.shape[0])])
     ###########################################################################
     #                           END OF YOUR CODE                              #
     ###########################################################################
@@ -548,7 +548,7 @@ def batched_matrix_multiply_noloop(x: Tensor, y: Tensor) -> Tensor:
     #                      TODO: Implement this function                      #
     ###########################################################################
     # Replace "pass" statement with your code
-    pass
+    z = torch.bmm(x, y)
     ###########################################################################
     #                            END OF YOUR CODE                             #
     ###########################################################################
@@ -583,7 +583,10 @@ def normalize_columns(x: Tensor) -> Tensor:
     #                      TODO: Implement this function                     #
     ##########################################################################
     # Replace "pass" statement with your code
-    pass
+    y = x.clone()
+    mu = y.sum(dim=0) / y.shape[0]
+    sigma = torch.sqrt(((y - mu) ** 2).sum(dim=0) / (y.shape[0] - 1))
+    y = (y - mu) / sigma
     ##########################################################################
     #                            END OF YOUR CODE                            #
     ##########################################################################
@@ -630,7 +633,7 @@ def mm_on_gpu(x: Tensor, w: Tensor) -> Tensor:
     #                      TODO: Implement this function                     #
     ##########################################################################
     # Replace "pass" statement with your code
-    pass
+    y = torch.mm(x.cuda(), w.cuda()).cpu()
     ##########################################################################
     #                            END OF YOUR CODE                            #
     ##########################################################################
