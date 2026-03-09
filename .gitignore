@@ -1,3 +1,5 @@
 /.DS_Store
 /A1.zip
 /__pycache__/
+*.tar.gz
+cifar-10-batches-py/
